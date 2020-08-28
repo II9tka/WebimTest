@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+    <div>
+        {% for account in vk_profile %}
+            {% if first_visit %}
+                <div>
+                    <p>Имя: {{ account.extra_data.first_name }}</p>
+                </div>
+            {% else %}
+                <div>
+                    <h2 style="text-transform:capitalize;">Информация об аккаунте {{ account.provider }}</h2>
+                    <p><img width="50" height="50" src="{{ account.get_avatar_url }}" alt="..."/></p>
+                    <p>UID: {{account.extra_data.link }} {{ account.uid }}</p>
+                    <p>Пользователь: {{ account.extra_data.screen_name }}</p>
+                    <p>Имя: {{ account.extra_data.first_name }}</p>
+                    <p>Фамилия: {{ account.extra_data.last_name }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if my_friends %}
+            <h2>Список ваших друзей:</h2>
+            {% for key in my_friends %}
+                <div class="mt-5">
+                    <span>id: {{ key.id }}</span>
+                    <div>
+                        <span>Имя: {{ key.first_name }}</span>
+                    </div>
+                    <div>
+                        <span>Фамилия: {{ key.last_name }}</span>
+                    </div>
+                    <img src="{{ key.photo_200_orig }}" alt="..."/>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

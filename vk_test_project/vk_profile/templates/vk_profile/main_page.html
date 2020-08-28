@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block content %}
+
+{% get_providers as socialaccount_providers %}
+
+    <h3>
+        Авторизоваться через:
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        {% include "socialaccount/snippets/login_extra.html" %}
+    </h3>
+
+{% endblock %}
